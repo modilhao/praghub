@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenvolvimento Econômico - Cajamar 2025</title>
+    <style>
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #005A9C;
+            --accent-color: #FDB813;
+            --light-gray: #f4f4f4;
+            --dark-gray: #333;
+            --text-color: #4A4A4A;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background: #fff;
+            color: var(--primary-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar nav ul li {
+            margin-left: 25px;
+        }
+
+        .navbar nav ul li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .navbar nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 90, 156, 0.7)), url('https://media.istockphoto.com/id/1332973410/photo/global-business-logistics-import-export-concept-and-transportation-concept-of-container.jpg?s=612x612&w=0&k=20&c=g-B6QwH-32a3W6-J3J6-bUNTs-R5mmfyxYsvs2Xm3bM=') no-repeat center center/cover;
+            color: #fff;
+            padding: 160px 0 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+        
+        .stats-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            width: 220px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            margin: 0 0 5px 0;
+            color: var(--accent-color);
+        }
+        
+        .stat-card p {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        /* --- General Section Styling --- */
+        section {
+            padding: 80px 0;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-color);
+        }
+
+        /* --- Sectors Section --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover, .tab-button.active {
+            background: var(--secondary-color);
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .sector-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .sector-grid img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .sector-grid ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sector-grid ul li {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23FDB813" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>') no-repeat left center;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* --- Strategy Section --- */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .strategy-item {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .strategy-item .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        .strategy-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* --- Opportunities Section --- */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .analysis-column h3 {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .analysis-column ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .analysis-column ul li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+            border-left: 5px solid;
+            border-radius: 4px;
+        }
+
+        .opportunities-col li { border-color: #28a745; } /* Green */
+        .challenges-col li { border-color: #dc3545; } /* Red */
+        
+        /* --- Companies Directory Section --- */
+        #search-company {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .table-wrapper {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        
+        #company-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #company-table th, #company-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #company-table thead th {
+            background-color: var(--secondary-color);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        
+        #company-table tbody tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        #company-table tbody tr:hover {
+            background-color: #e2e2e2;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .footer p {
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .navbar nav { display: none; } /* Simplificando para o exemplo */
+            .hero h1 { font-size: 2.5rem; }
+            .sector-grid, .analysis-grid { grid-template-columns: 1fr; }
+            .sector-grid img { margin-top: 30px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">Desenvolvimento Econômico - Cajamar</div>
+            <nav>
+                <ul>
+                    <li><a href="#overview">Visão Geral</a></li>
+                    <li><a href="#potential">Potencial Econômico</a></li>
+                    <li><a href="#strategy">Estratégia 2028</a></li>
+                    <li><a href="#opportunities">Oportunidades</a></li>
+                    <li><a href="#directory">Empresas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>Cajamar: O Epicentro Logístico e Industrial que Impulsiona o Futuro</h1>
+                <p>Análise de Cenários, Tendências e Perspectivas para o Desenvolvimento Econômico Municipal (2025-2028)</p>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3>R$ 287,4 mil</h3>
+                        <p>PIB per Capita</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>+69,7%</h3>
+                        <p>Crescimento do PIB (5 anos)</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>~92,7 mil</h3>
+                        <p>População Residente</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3>7º</h3>
+                        <p>Melhor Crescimento (Região)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="overview">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Visão Geral de um Gigante Econômico</h2>
+                    <p>Com uma localização privilegiada na Região Metropolitana de São Paulo, Cajamar consolidou-se como um polo econômico robusto, combinando uma forte vocação industrial com o dinamismo do maior hub logístico do país. Seu crescimento acelerado e o PIB per capita, significativamente superior às médias estadual e regional, refletem um ambiente de negócios próspero e em constante expansão.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="potential" class="bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Potencial Econômico: Os Motores de Cajamar</h2>
+                    <p>A economia de Cajamar é diversificada e poderosa, liderada pelos setores de Serviços (80,2% do V.A.) e Indústria (16,9%).</p>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-button active" onclick="openTab(event, 'logistics')">🚀 Logística & E-commerce</button>
+                    <button class="tab-button" onclick="openTab(event, 'industry')">🏭 Indústria de Transformação</button>
+                    <button class="tab-button" onclick="openTab(event, 'commerce')">🛒 Comércio & Serviços</button>
+                </div>
+
+                <div id="logistics" class="tab-content active">
+                    <div class="sector-grid">
+                        <div>
+                            <h3>O Motor da Economia Local</h3>
+                            <p>Apelidada de "Faria Lima dos Galpões", Cajamar é o coração da logística brasileira, especialmente no distrito de Jordanésia. A cidade sedia gigantes do e-commerce e da distribuição, impulsionando a geração de milhares de empregos.</p>
+                            <ul>
+                                <li><strong>Principais Atividades:</strong> Transporte de carga e depósitos para terceiros.</li>
+                                <li><strong>Grandes Players:</strong> Mercado Livre, Amazon, Armazenaai, JCA Logística.</li>
+                                <li><strong>Investimento Massivo:</strong> O Mercado Livre planeja investir R$ 34 bilhões no Brasil em 2025, com foco estratégico em seu centro de Cajamar.</li>
+                                <li><strong>Geração de Emprego:</strong> A principal ocupação formal no município é a de auxiliar de logística.</li>
+                            </ul>
+                        </div>
+                        <img src="https://www.datamark.com.br/images/posts/20220627101704.jpg" alt="Centro de Distribuição em Cajamar">
+                    </div>
+                </div>
+
+                <div id="industry" class="tab-content">
+                     <div class="sector-grid">
+                        <div>
+                            <h3>Diversidade, Inovação e Alcance Global</h3>
+                            <p>A indústria de Cajamar é um pilar de diversificação e força, abrigando empresas de renome mundial e setores que vão de cosméticos a alta tecnologia.</p>
+                            <ul>
+                                <li><strong>Setores de Destaque:</strong> Cosméticos, Química, Eletroeletrônica, Metalurgia, Plásticos e Alimentos.</li>
+                                <li><strong>Gigantes Globais:</strong> Sede de operações cruciais de empresas como Natura, The Body Shop, SKF e TCL Semp.</li>
+                                <li><strong>Força Regional:</strong> Empresas como Promax Bardahl, Sayerlack e Georg Fischer fortalecem o cluster industrial.</li>
+                                 <li><strong>Contribuição Relevante:</strong> Responde por 16,9% do Valor Adicionado do município.</li>
+                            </ul>
+                        </div>
+                        <img src="https://www.cajamar.sp.gov.br/noticias/wp-content/uploads/2023/07/prefeito-danilo-visita-a-empresa-natura-1024x683.jpeg" alt="Indústria em Cajamar">
+                    </div>
+                </div>
+
+                <div id="commerce" class="tab-content">
+                    <div class="sector-grid">
+                        <div>
+                            <h3>A Força de um Mercado Consumidor em Ascensão</h3>
+                            <p>Com um PIB per capita elevado, o comércio e os serviços de Cajamar prosperam, atendendo a uma população com alto potencial de consumo e às demandas do complexo logístico-industrial.</p>
+                            <ul>
+                                 <li><strong>Forte Empregador:</strong> O setor representa 21% dos empregos formais da cidade.</li>
+                                 <li><strong>Diversidade:</strong> Ampla gama de serviços, desde manutenção industrial e saúde até atividades administrativas e varejo especializado.</li>
+                                 <li><strong>Grandes Redes:</strong> Presença de marcas fortes como Marabraz, além de uma rede robusta de supermercados e serviços.</li>
+                                 <li><strong>Potencial Online:</strong> Mais da metade das novas empresas abertas em 2025 possuem atuação online, refletindo uma tendência de digitalização.</li>
+                            </ul>
+                        </div>
+                        <img src="https://live.staticflickr.com/65535/52787834725_2f57a31b67_b.jpg" alt="Comércio em Cajamar">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Estratégia 2025-2028: Construindo o Futuro</h2>
+                    <p>O Plano de Metas Municipal delineia uma visão clara para o futuro, com investimentos robustos para garantir um crescimento sustentável e competitivo.</p>
+                </div>
+                <div class="strategy-grid">
+                    <div class="strategy-item">
+                        <div class="icon">🛣️</div>
+                        <h3>Infraestrutura Viária</h3>
+                        <p>Duplicação de avenidas estratégicas como Dr. Antônio João Abdalla e criação de novas ligações para otimizar o fluxo logístico.</p>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="icon">📈</div>
+                        <h3>Atração de Investimentos</h3>
+                        <p>Implementação do Programa Municipal de Atração de Investimentos (PMAI) com revisão de incentivos e prospecção ativa de novos negócios.</p>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="icon">🎓</div>
+                        <h3>Capital Humano</h3>
+                        <p>Meta de qualificar 8.000 pessoas até 2028 através do PROCAP, com foco em logística, tecnologia e empreendedorismo.</p>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="icon">💡</div>
+                        <h3>Fomento ao Empreendedorismo</h3>
+                        <p>Criação da Incubadora Cajamar para startups, desburocratização e linhas de microcrédito para apoiar pequenos negócios.</p>
+                    </div>
+                     <div class="strategy-item">
+                        <div class="icon">💻</div>
+                        <h3>Tecnologia e Inovação</h3>
+                        <p>Implantação de um Campus de Tecnologia e Logística para formação de mão de obra especializada e fomento à inovação.</p>
+                    </div>
+                     <div class="strategy-item">
+                        <div class="icon">🌍</div>
+                        <h3>Sustentabilidade</h3>
+                        <p>Planos para revitalização de áreas industriais com foco em automação e práticas sustentáveis, alinhando crescimento e responsabilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="opportunities" class="bg-light">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Análise Estratégica: Desafios e Oportunidades</h2>
+                    <p>Uma visão equilibrada do caminho a seguir, identificando os pontos de atenção e as alavancas para o crescimento contínuo.</p>
+                </div>
+                <div class="analysis-grid">
+                    <div class="analysis-column opportunities-col">
+                        <h3>Oportunidades</h3>
+                        <ul>
+                            <li>Capitalizar a posição de hub logístico para atrair mais investimentos em tecnologia e automação.</li>
+                            <li>Diversificar a matriz industrial com foco em setores de alto valor agregado.</li>
+                            <li>Fortalecer o ecossistema local de inovação e startups, conectando-o às grandes empresas.</li>
+                            <li>Qualificar a mão de obra local para preencher as vagas de alta complexidade geradas.</li>
+                             <li>Aproveitar os investimentos em infraestrutura para melhorar a competitividade e a qualidade de vida.</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-column challenges-col">
+                        <h3>Desafios</h3>
+                        <ul>
+                            <li>Garantir que o desenvolvimento da infraestrutura urbana acompanhe o ritmo do crescimento econômico.</li>
+                            <li>Superar a lacuna de mão de obra especializada para as novas demandas tecnológicas.</li>
+                            <li>Gerenciar a mobilidade urbana diante do aumento do fluxo de cargas e pessoas.</li>
+                            <li>Reduzir a dependência de poucos grandes players, incentivando a MPEs.</li>
+                            <li>Manter a atratividade fiscal e de negócios frente a outros municípios.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="directory">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Diretório de Empresas em Destaque</h2>
+                    <p>Navegue pela lista de algumas das principais empresas que formam o tecido econômico de Cajamar. Use a busca para encontrar empresas por nome ou setor.</p>
+                </div>
+                
+                <input type="text" id="search-company" onkeyup="filterTable()" placeholder="Buscar por Razão Social ou Setor...">
+                
+                <div class="table-wrapper">
+                    <table id="company-table">
+                        <thead>
+                            <tr>
+                                <th>Razão Social</th>
+                                <th>Setor</th>
+                                <th>Telefone</th>
+                                <th>E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody id="company-table-body">
+                           </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>Relatório de Desenvolvimento Econômico de Cajamar | Gerado em Junho de 2025</p>
+            <p>Este documento é uma compilação e análise de dados públicos para fins de planejamento estratégico.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const companyData = [
+            {"razao_social": "CEDUC - CENTRO DE FORMACAO PROFISSIONAL E EDUCACIONAL LTDA", "setor": "Educação", "telefone": "(11) 4523-0755", "email": "financeiro@crechesceduc.com.br"},
+            {"razao_social": "JGM COMERCIO DE LANCHES LTDA", "setor": "Alimentos", "telefone": "(11) 3259-8686", "email": "societario@vexsea.com.br"},
+            {"razao_social": "SPORTS ENDURANCE TEAM LTDA", "setor": "Comércio de Artigos Esportivos", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "KMG ENGENHARIA LTDA", "setor": "Engenharia", "telefone": "(11) 7584-5504", "email": "karinamoura.go@hotmail.com"},
+            {"razao_social": "VIDA E SAUDE ENCAPSULADOS LTDA", "setor": "Comércio de Alimentos", "telefone": "(51) 9593-6971", "email": "contato@swcontabil.com"},
+            {"razao_social": "CP SERVICOS E COMERCIO LTDA", "setor": "Serviços", "telefone": "(21) 3648-4900", "email": "aecio.oliveira@multiplocontabilidade.com.br"},
+            {"razao_social": "PONTO TECH IMPORTACAO LTDA.", "setor": "Comércio", "telefone": "(47) 9974-7512", "email": "jair.bonatti@fjn.com.br"},
+            {"razao_social": "INSTITUTO SER EMPREENDEDORA", "setor": "Consultoria", "telefone": "(11) 9740-3859", "email": "serempreendedora19@gmail.com"},
+            {"razao_social": "DEX MULT COMERCIAL LTDA", "setor": "Comércio", "telefone": "(11) 9827-2239", "email": "elias.contabilidade@uol.com.br"},
+            {"razao_social": "DESKO COMPANY - COMERCIO DE MATERIAIS ESCOLARES E PRODUTOS DE DECORACAO LTDA", "setor": "Comércio", "telefone": "(51) 9191-8744", "email": "ado@adeodois.com.br"},
+            {"razao_social": "DIGITAL CAMPUS CAJAMAR LTDA", "setor": "Educação", "telefone": "(11) 3611-9788", "email": "roberto.carvalho@stilgraf.com.br"},
+            {"razao_social": "SOMAZA REPRESENTACOES E NEGOCIOS LTDA", "setor": "Representação Comercial", "telefone": "(11) 9933-1202", "email": "soniasantovito01@gmail.com"},
+            {"razao_social": "POINT MARKET LTDA", "setor": "Comércio", "telefone": "(11) 4274-9898", "email": "okeo.contato@gmail.com"},
+            {"razao_social": "JME HOLDING LTDA", "setor": "Holding", "telefone": "(11) 4008-8234", "email": "jventuraribeiro@gmail.com"},
+            {"razao_social": "RRMJ PARTICIPACOES LTDA", "setor": "Holding", "telefone": "(21) 2187-1206", "email": "luiz.candido@una-prosil.com.br"},
+            {"razao_social": "SOUZA REIS EDUCACAO LTDA", "setor": "Educação", "telefone": "(61) 9271-2505", "email": "barbrareis@gmail.com"},
+            {"razao_social": "RL NEGOCIOS DE ESPORTE E LAZER LTDA.", "setor": "Esporte e Lazer", "telefone": "(11) 5092-3355", "email": "fatima@rlsolucoes.com.br"},
+            {"razao_social": "EMPROL COMERCIO IMPORTACAO EXPORTACAO LTDA", "setor": "Comércio Exterior", "telefone": "(11) 3042-1465", "email": "dlegal@litointeligenciacontabil.com.br"},
+            {"razao_social": "GR SERVICOS E ALIMENTACAO LTDA.", "setor": "Alimentação", "telefone": "(11) 3003-1603", "email": "fiscal.estadual@grsa.com.br"},
+            {"razao_social": "DPF PARTICIPACOES LTDA", "setor": "Holding", "telefone": "(11) 4446-4100", "email": "pilar@dpfautopecas.com.br"},
+            {"razao_social": "JOSE ANTONIO REPRESENTACAO E SERVICOS LTDA", "setor": "Representação Comercial", "telefone": "(11) 2618-5811", "email": "dec@assessoriacontabil.net"},
+            {"razao_social": "COMBATE - ATACADO E DISTRIBUIDORA DE ALIMENTOS LTDA", "setor": "Atacado", "telefone": "(19) 3861-1449", "email": "combateatacado2014@yahoo.com.br"},
+            {"razao_social": "VALENCE STORE LTDA", "setor": "Comércio", "telefone": "(42) 3627-5786", "email": "nanike@nakinedecoracoes.com.br"},
+            {"razao_social": "PCS CONSULTORIAS, PROJETOS E SERVICOS DE TELECOMUNICACOES LTDA", "setor": "Telecomunicações", "telefone": "(31) 4063-8240", "email": "diretoria@tecnocabo.net.br"},
+            {"razao_social": "BOQUINHAS APRENDIZAGEM E ASSESSORIA LTDA", "setor": "Educação", "telefone": "(14) 3312-4406", "email": "expediente@novomundonet.com.br"},
+            {"razao_social": "ASSOCIACAO PACIS - PERSEVERANCA NO APRENDIZADO, CIDADANIA E INCLUSAO SOCIAL", "setor": "Associação", "telefone": "(11) 2235-2758", "email": "contadorbaracho@globo.com"},
+            {"razao_social": "DFE PHARMA DO BRASIL LTDA.", "setor": "Farmacêutica", "telefone": "(19) 3826-6823", "email": "financeiro@frieslandcampina.com"},
+            {"razao_social": "IT SAVE OFICIAL LTDA", "setor": "Tecnologia", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "JSI DISTRIBUIDORA DE FERRO E ACO LTDA", "setor": "Siderurgia", "telefone": "(11) 4182-3559", "email": "jsiferroeaco7@gmail.com"},
+            {"razao_social": "CONEXOES CAVAGNOLI LTDA", "setor": "Indústria", "telefone": "(49) 3622-0194", "email": "conexoescavagnoli@hotmail.com"},
+            {"razao_social": "GUAMA POLPAS INDUSTRIA E EXPORTACAO LTDA", "setor": "Alimentos", "telefone": "(91) 3711-0597", "email": "penielcontabilidade@outlook.com"},
+            {"razao_social": "TEMPLO PELARIO DO AMANHECER DE FRANCO DA ROCHA - SP", "setor": "Organização Religiosa", "telefone": "(11) 5959-2004", "email": "rpetrozziello@gmail.com"},
+            {"razao_social": "RESTAURANTE CARAVELLAS LTDA", "setor": "Alimentação", "telefone": "(11) 5854-1427", "email": "iramirlima605@gmail.com"},
+            {"razao_social": "RESTAURANTE BISTRO LOJA ANHANGUERA SHOPPING LTDA", "setor": "Alimentação", "telefone": "(11) 5854-1427", "email": "iramirlima605@gmail.com"},
+            {"razao_social": "EVELIN BEATRIZ DA SILVA LTDA", "setor": "N/A", "telefone": "(11) 9238-5450", "email": "evelin.beatriz@yahoo.com"},
+            {"razao_social": "RANCHO CUPIM LTDA", "setor": "Alimentação", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "ENVISION INDUSTRIA DE PRODUTOS ELETRONICOS LTDA", "setor": "Indústria Eletrônica", "telefone": "(92) 2126-4133", "email": "ana.caranha@tpv-tech.com"},
+            {"razao_social": "IGREJA EVANGELICA ASSEMBLEIA DE DEUS MINISTERIO PORTAL CAJAMAR", "setor": "Organização Religiosa", "telefone": "(11) 8923-0532", "email": "gildo.neves@yahoo.com.br"},
+            {"razao_social": "OAZ VAREJO LTDA", "setor": "Comércio", "telefone": "(11) 8840-5125", "email": "fiscal@oaz.co"},
+            {"razao_social": "MARIA EDUARDA FERREIRA SILVA LTDA", "setor": "N/A", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "OFFICER S. A. DISTRIBUIDORA DE PRODUTOS DE TECNOLOGIA", "setor": "Tecnologia", "telefone": "(11) 5014-7045", "email": "fiscal@oficeer.com.br"},
+            {"razao_social": "LIMA ELETRO SERVICE LTDA", "setor": "Serviços", "telefone": "(11) 4585-9311", "email": "rafaelacutalolima@hotmail.com"},
+            {"razao_social": "LIMA SOCIEDADE DE ADVOGADOS", "setor": "Advocacia", "telefone": "(11) 4448-5129", "email": "lima.associados@uol.com.br"},
+            {"razao_social": "CRISTIANE APARECIDA ALMEIDA RESENDE - ESCOLINHA", "setor": "Educação", "telefone": "(11) 7440-8922", "email": "renato@resendeassessoria.com.br"},
+            {"razao_social": "VINERIA COMERCIO DE VINHOS LTDA", "setor": "Comércio de Bebidas", "telefone": "(54) 3055-4433", "email": "contato@vineria9.com.br"},
+            {"razao_social": "TANINO COMERCIO DE ALIMENTICIOS LTDA", "setor": "Alimentos", "telefone": "(11) 2503-6830", "email": "ricardo.abellan@gmail.com"},
+            {"razao_social": "EMPORIO EXPRESS LTDA", "setor": "Comércio", "telefone": "(11) 9988-7766", "email": "1@1.com"},
+            {"razao_social": "SC INTERMEDIACAO E ASSESSORIA LTDA", "setor": "Serviços", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "EMPORIO EXPRESS LTDA", "setor": "Comércio", "telefone": "(11) 9507-0236", "email": "1@1.com"},
+            {"razao_social": "EUROFARMA LABORATORIOS S.A.", "setor": "Farmacêutica", "telefone": "(11) 5090-8600", "email": "contencioso.fiscal@eurofarma.com.br"},
+            {"razao_social": "GRELHADOS AGS SANTOS LTDA", "setor": "Alimentação", "telefone": "(11) 9797-7463", "email": "alessandrasantossnts@gmail.com"},
+            {"razao_social": "DALS CONSULTORIA E SERVICOS LTDA", "setor": "Consultoria", "telefone": "(11) 4462-3786", "email": "douglas.282.souza@gmail.com"},
+            {"razao_social": "STUDIO INTEGRA FISIOTERAPIA E PILATES LTDA", "setor": "Saúde", "telefone": "(11) 8492-0975", "email": "studiointegrafisioepilates@gmail.com"},
+            {"razao_social": "CAJAMAR PLASTICOS LTDA", "setor": "Indústria de Plástico", "telefone": "(11) 4964-3522", "email": "cajamarplasticos@gmail.com"},
+            {"razao_social": "RRMJEMP PARTICIPACOES LTDA", "setor": "Holding", "telefone": "(21) 2187-1206", "email": "luiz.candido@una-prosil.com.br"},
+            {"razao_social": "ULTTRA MEDICAL BRASIL COMERCIO, IMPORTACAO E EXPORTACAO LTDA", "setor": "Saúde", "telefone": "(11) 4420-5940", "email": "financeiro@ulttra.com.br"},
+            {"razao_social": "CONSTRUTORA MONTANHERI LTDA", "setor": "Construção", "telefone": "(11) 5303-7363", "email": "engmarciocabral@gmail.com"},
+            {"razao_social": "FORLANSALES IMOVEIS LTDA", "setor": "Imobiliário", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "THE SPACE BETWEEN LAVA RAPIDO LTDA", "setor": "Serviços Automotivos", "telefone": "(11) 7861-2093", "email": "thespacebetween@gmail.com"},
+            {"razao_social": "K.C CONSTRUCOES REFORMAS E ADEQUACOES LTDA", "setor": "Construção", "telefone": "(11) 9586-5417", "email": "kelvin.cristian921@hotmail.com"},
+            {"razao_social": "HMO PAPEIS LTDA", "setor": "Papel e Celulose", "telefone": "(11) 5043-9288", "email": "contato@marttinsconsultoria.com.br"},
+            {"razao_social": "PIER SHIP CHANDLER LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "GABRIELA MENDES CORRETORA DE IMOVEIS LTDA", "setor": "Imobiliário", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "PISA & ASSOCIADOS EMPREENDIMENTOS IMOBILIARIOS S.A.", "setor": "Imobiliário", "telefone": "(31) 3244-2053", "email": "contato@boavistaga.com"},
+            {"razao_social": "SOUL BEBIDAS ATACADO E VAREJISTA LTDA", "setor": "Comércio de Bebidas", "telefone": "(11) 4448-4109", "email": "soulbebsoulbebidas@gmail.com"},
+            {"razao_social": "TURBO CLASSIFICADOS COMERCIO DE VEICULOS LTDA", "setor": "Comércio de Veículos", "telefone": "(11) 4448-4109", "email": "mouradamiao@gmail.com"},
+            {"razao_social": "LABORATORIO SAPIENS DIAGNOSTICOS TOXICOLOGICOS LTDA", "setor": "Saúde", "telefone": "(11) 9249-2760", "email": "contato@sapiens.com.br"},
+            {"razao_social": "ASSEMBLEIA DE DEUS MINISTERIO CONQUISTADORES", "setor": "Organização Religiosa", "telefone": "(11) 4957-7063", "email": "gustavol923@hotmail.com"},
+            {"razao_social": "RESTAURANTE REI DAS MARMITAS LTDA", "setor": "Alimentação", "telefone": "(11) 4447-1019", "email": "filet.restaurante@hotmail.com"},
+            {"razao_social": "COSTA GLORIA SOLUCOES E LUBRIFICANTES LTDA", "setor": "Comércio", "telefone": "(11) 9746-3550", "email": "adonadooleo@gmail.com"},
+            {"razao_social": "ENGEMONT MAFE ENGENHARIA SPE LTDA", "setor": "Engenharia", "telefone": "(15) 3229-2799", "email": "legalizacao@vancreicontabil.com.br"},
+            {"razao_social": "SUPER CDMD COMERCIO DE VEICULOS AUTOMOTORES LTDA", "setor": "Comércio de Veículos", "telefone": "(11) 3646-4300", "email": "ricardopedrozo@uol.com.br"},
+            {"razao_social": "TELEFONICA BRASIL S.A.", "setor": "Telecomunicações", "telefone": "(11) 3430-2145", "email": "cadastro.fiscal.br@telefonica.com"},
+            {"razao_social": "F SANTOS SERVICOS OPERACIONAIS LTDA", "setor": "Serviços", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "ENVIO JA TECNOLOGIA E SERVICOS LTDA", "setor": "Tecnologia", "telefone": "(48) 3365-8781", "email": "contato@useenvioja.com.br"},
+            {"razao_social": "FERREIRA & GERALDO SOLUCOES TERCEIRIZADAS LTDA", "setor": "Logística", "telefone": "(11) 5698-8201", "email": "grupogeraldolog@gmail.com"},
+            {"razao_social": "AFFONSO DESCARTAVEIS LTDA", "setor": "Comércio", "telefone": "(11) 2202-3722", "email": "esca@esca.com.br"},
+            {"razao_social": "HY CITE PARTICIPACOES BRASIL LTDA", "setor": "Holding", "telefone": "(11) 3039-7500", "email": "rcarvalho@slmlaw.com.br"},
+            {"razao_social": "MULTIMOVEIS INDUSTRIA DE MOVEIS LTDA", "setor": "Indústria Moveleira", "telefone": "(54) 2102-4000", "email": "contabil@multimoveis.com"},
+            {"razao_social": "PERFORMA PLANEJAMENTO E SERVICOS DE ENGENHARIA LTDA", "setor": "Engenharia", "telefone": "(11) 4447-4362", "email": "r.almeidadeoliveira@yahoo.com.br"},
+            {"razao_social": "GR SERVICOS E ALIMENTACAO LTDA.", "setor": "Alimentação", "telefone": "(11) 2135-3000", "email": "fiscal.estadual@grsa.com.br"},
+            {"razao_social": "DAIANA DUARTE CONSULTORIA CONTABIL", "setor": "Contabilidade", "telefone": "(11) 5241-6309", "email": "daianaduarte54@gmail.com"},
+            {"razao_social": "SOMBRISUL EQUIPAMENTOS PARA SUPERMERCADOS LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "MEGA FORT SOLUCOES EM FACILITES E TECNOLOGIA", "setor": "Serviços", "telefone": "(11) 9870-9572", "email": "mtheodoro2016@gmail.com"},
+            {"razao_social": "NEWLANGE SERVICOS ADM LTDA", "setor": "Serviços", "telefone": "(11) 9230-7688", "email": "newlangec@gmail.com"},
+            {"razao_social": "NS INTERFACIL AGENCIAMENTO E INTERMEDIACAO DE NEGOCIOS LTDA", "setor": "Serviços", "telefone": "(11) 4407-0375", "email": "assessoriacontabilgomes@gmail.com"},
+            {"razao_social": "CHAGAS E AKSTEIN ACADEMIA LTDA", "setor": "Esporte e Lazer", "telefone": "(11) 8129-7751", "email": "ma.akstein@gmail.com"},
+            {"razao_social": "DXN MARKETING (BRASIL) LTDA", "setor": "Marketing", "telefone": "(19) 3829-2752", "email": "luz_socorro@dxn2u.com"},
+            {"razao_social": "BALAROTI - COMERCIO DE MATERIAIS DE CONSTRUCAO S.A.", "setor": "Comércio de Material de Construção", "telefone": "(41) 3058-8600", "email": "falecom@balaroti.com.br"},
+            {"razao_social": "MOUTINHOS SEGURANCA E VIGILANCIA LTDA", "setor": "Segurança", "telefone": "(11) 4152-6904", "email": "contato@contaservices.com.br"},
+            {"razao_social": "SPT COMERCIO DIGITAL LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "CAIQUE C. PACHECO LTDA", "setor": "N/A", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "FORTMAQ INDUSTRIA E COMERCIO LTDA", "setor": "Indústria", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "ASSOCIACAO MOREIRA PROTECAO ANIMAL", "setor": "Associação", "telefone": "(11) 4238-7701", "email": "afiscont@afiscont.com.br"},
+            {"razao_social": "HL COMERCIO LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "PIMENTEL & MACHADO COMERCIO E SERVICOS LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "ULTRA METAL ESQUADRIAS DE ALUMINIO LTDA", "setor": "Indústria Metalúrgica", "telefone": "(11) 4912-7721", "email": "contabilidade@mjmcont.com.br"},
+            {"razao_social": "PIRES COMERCIO ELETRONICO LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "FGH E SAVIETO LTDA", "setor": "N/A", "telefone": "(11) 4116-5884", "email": "contato@trdias.com.br"},
+            {"razao_social": "POWER LIVE ACADEMIA LTDA", "setor": "Esporte e Lazer", "telefone": "(11) 9558-6446", "email": "nvcontabil@gmail.com"},
+            {"razao_social": "JCS ELETRICA E HIDRAULICA LTDA", "setor": "Construção", "telefone": "(11) 4734-3100", "email": "cavalcante.instalacoes@outlook.com"},
+            {"razao_social": "COMERCIO E IMPORTACAO DE ACESSORIOS PARA VEICULOS SCS LTDA", "setor": "Comércio de Veículos", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "TRES IRMAS ADMINISTRADORA DE BENS E IMOVEIS LTDA", "setor": "Imobiliário", "telefone": "(11) 4448-4109", "email": "carolineliliane@gmail.com"},
+            {"razao_social": "IVIE NASCIMENTO SOCIEDADE INDIVIDUAL DE ADVOCACIA", "setor": "Advocacia", "telefone": "(11) 8080-9882", "email": "ivieadvogada@gmail.com"},
+            {"razao_social": "ZION COMERCIO DE LIVROS & OUTROS LTDA", "setor": "Comércio de Livros", "telefone": "(47) 3083-8555", "email": "nfe@zionlivros.com.br"},
+            {"razao_social": "MOBILLARE INDUSTRIA DE MOVEIS LTDA", "setor": "Indústria Moveleira", "telefone": "(32) 3577-3800", "email": "laiane.marques@moveisrufato.com.br"},
+            {"razao_social": "JORDANESIA BOLOS CASEIROS LTDA", "setor": "Alimentos", "telefone": "(11) 3673-3582", "email": "contato@cervell.com.br"},
+            {"razao_social": "MDF SHOP E-COMERCE LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "MEDICAL ARMAZENAGEM LOGISTICA E DISTRIBUICAO LTDA", "setor": "Logística", "telefone": "(11) 4448-4109", "email": "legalizacao@laurindoemota.com.br"},
+            {"razao_social": "VIA AROMA INDUSTRIA DE AROMATIZADORES DE AMBIENTES LTDA", "setor": "Indústria Química", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "R.BRANDS LTDA", "setor": "N/A", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "SANCIN COMERCIO DE ALIMENTOS LTDA", "setor": "Alimentos", "telefone": "(11) 7640-3209", "email": "suacoxinha.cajamar@gmail.com"},
+            {"razao_social": "ELETRONICA AGM LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "HOUSEWARE BRASIL COMERCIAL LTDA.", "setor": "Comércio", "telefone": "(11) 4527-1355", "email": "adm@marcamix.ocm.br"},
+            {"razao_social": "MK ECOMM LTDA", "setor": "Comércio", "telefone": "(71) 3288-2507", "email": "valdirene@plima.com.br"},
+            {"razao_social": "COBATA COMERCIO E DISTRIBUICAO LTDA", "setor": "Comércio", "telefone": "(11) 4564-3336", "email": "societario@mistercont.com.br"},
+            {"razao_social": "ROUND ONE", "setor": "N/A", "telefone": "(11) 5959-2004", "email": "contato@petrozziello.cnt.br"},
+            {"razao_social": "DANIELA DE SOUZA FERREIRA SERVICO DE TERAPIA OCUPACIONAL LTDA", "setor": "Saúde", "telefone": "(34) 9272-5960", "email": "dannyella.sullivan@gmail.com"}
+        ];
+
+        // Function to populate the table
+        function populateTable(data) {
+            const tableBody = document.getElementById('company-table-body');
+            tableBody.innerHTML = ''; // Clear existing data
+            data.forEach(company => {
+                let row = `<tr>
+                    <td>${company.razao_social || ''}</td>
+                    <td>${company.setor || 'N/A'}</td>
+                    <td>${company.telefone || ''}</td>
+                    <td>${company.email || ''}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Function to filter the table
+        function filterTable() {
+            const input = document.getElementById('search-company');
+            const filter = input.value.toUpperCase();
+            const filteredData = companyData.filter(company => {
+                return (company.razao_social.toUpperCase().includes(filter) || 
+                        (company.setor && company.setor.toUpperCase().includes(filter)));
+            });
+            populateTable(filteredData);
+        }
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Initial table population
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTable(companyData);
+        });
+
+    </script>
+</body>
+</html>
